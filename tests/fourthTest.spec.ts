@@ -18,9 +18,9 @@ test('Reusing Locators', async ({page}) => {
     await basicform.getByRole('button', {name: 'Submit'}).click()
 
     await expect(emailfield).toHaveValue('RJtest.gmail.com')
-
-
 })
+
+
 
 
 
