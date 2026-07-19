@@ -17,3 +17,37 @@ const usingthegridForm = page.locator('nb-card').filter({hasText: 'Using the Gri
 const allradiobuttonText = await usingthegridForm.locator('nb-radio').allTextContents()
 expect(allradiobuttonText).toContain('Option 1')
 })
+
+test('inputText', async({page}) => {
+const basicform1 = page.locator('nb-card').filter({hasText: 'Basic form'})
+const email1 = basicform1.getByRole('textbox', {name: 'Email'})
+await email1.fill('test@test.com')
+const emailInputValue = await email1.inputValue()
+expect(emailInputValue).toEqual('test@test.com')
+
+})
+
+test('Attribute Value', async({page}) => {
+const basicform1 = page.locator('nb-card').filter({hasText: 'Basic form'})
+const email1 = basicform1.getByRole('textbox', {name: 'Email'})
+const PlaceholderValue = await email1.getAttribute('placeholder')
+expect(PlaceholderValue).toEqual('Email')
+
+
+})
+
+test('Assertion', async({page}) => {
+const value = 5
+expect(value).toEqual(5)
+
+const basicform1 = page.locator('nb-card').filter({hasText: 'Basic form'}).locator('button')
+const buttonText = await basicform1.textContent()
+expect(buttonText).toEqual('Submit')
+
+expect(basicform1).toHaveText('Submit')
+
+expect(basicform1).toHaveText('Submit1')
+basicform1.click()
+
+
+})
