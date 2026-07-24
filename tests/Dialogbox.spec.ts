@@ -33,6 +33,8 @@ test('webtable1', async({page}) => {
 test ('webtablebyId', async({page}) => {
     await page.getByText('Tables & Data').click()
     await page.getByText('Smart Table').click()
+
+
     await page.locator('.ng2-smart-pagination-nav').getByText('2').click()
     const targetrowbyId = page.getByRole('row', {name: '11'}).filter({has: page.locator('td').nth(1).getByText('11')})
     await targetrowbyId.locator('.nb-edit').click()
@@ -42,6 +44,22 @@ test ('webtablebyId', async({page}) => {
     expect(targetrowbyId.locator('td').nth(5)).toHaveText('test@test.com')
 
 
-
-
+    const Ages = ["20", "30", "40", "200"]
+    for (let age of Ages){
+        await page.locator('input-filter').getByPlaceholder('Age').clear()
+        await page.locator('input-filter').getByPlaceholder('Age').fill(age)
+        
+        await page.waitForTimeout(500)
+        const ageRows = page.locator('tbody tr')
+        
+        for (let row of await ageRows.all()){
+        const ageValue = await row.locator('td').last().textContent()
+        if (age == "200"){
+            expect(page.locator('tbody tr')).toContainText('No data found')
+        }
+            else {
+                expect(ageValue).toEqual(age)
+        }
+        }      
+    }
 })
