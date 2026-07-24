@@ -41,7 +41,4 @@ test ('webtablebyId', async({page}) => {
     await page.locator('.nb-checkmark').click()
     expect(targetrowbyId.locator('td').nth(5)).toHaveText('test@test.com')
 
-
-
-
 })
